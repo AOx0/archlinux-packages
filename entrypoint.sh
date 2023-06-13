@@ -16,8 +16,11 @@ sudo -u builduser gpg --keyserver keyserver.ubuntu.com --recv-keys 38DBBDC860926
 passwd -d builduser
 printf 'builduser ALL=(ALL) ALL\n' | tee -a /etc/sudoers
 
-cat ./gpg_key | base64 --decode | gpg --homedir /home/builduser/.gnupg --import
+gpg --homedir /home/builduser/.gnupg --import ./gpg_key
 rm ./gpg_key
+
+gpg --list-keys --keyid-format=long
+gpg --list-secret-keys --keyid-format=long
 
 for i in synchroma; do
 	status=13
@@ -38,7 +41,7 @@ for i in synchroma; do
 done
 
 cp */*.pkg.tar.* ./
-repo-add --sign ./$serv_name.db.tar.gz ./*.pkg.tar.zst
+repo-add -v --sign ./$serv_name.db.tar.gz ./*.pkg.tar.zst
 
 for i in *.db *.files; do
 cp --remove-destination $(readlink $i) $i
