@@ -2,7 +2,7 @@
 
 Some packages not worth for AUR but worth keeping track of.
 
-## usage
+## Usage
 
 Add this to the end of `/etc/pacman.conf`
 ```
