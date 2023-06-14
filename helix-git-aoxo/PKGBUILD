@@ -11,7 +11,7 @@ arch=(x86_64)
 makedepends=('cargo')
 depends=()
 provides=('hx')
-conflicts=('helix')
+conflicts=('helix' 'helix-git')
 source=("${_pkgname}::git+${_git}")
 sha256sums=('SKIP')
 
@@ -46,6 +46,7 @@ build() {
 check() {
     cd "${_pkgname}"
     cargo test --release --all-features
+    cargo build --release
 }
 
 package() {
