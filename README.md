@@ -1,6 +1,12 @@
 # archlinux-packages
 
-Some packages not worth for AUR but worth keeping track of.
+My repository of pre-built packages for [pacman](https://wiki.archlinux.org/title/pacman).
+
+| Package        | Description                                     |
+| -------------- | ----------------------------------------------- |
+| helix-git-aoxo | A text editor written in rust                   |
+| kmonad-git     | An advanced keyboard manager written in Haskell |
+| synchroma      | A general purpose syntax highlighter in pure Go |
 
 ## Usage
 
