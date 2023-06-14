@@ -22,7 +22,7 @@ rm ./gpg_key
 gpg --list-keys --keyid-format=long
 gpg --list-secret-keys --keyid-format=long
 
-for i in synchroma helix-git-aoxo; do
+for i in synchroma helix-git-aoxo kmonad-git-aoxo; do
 	status=13
 	git submodule update --init $i
 	cd $i
