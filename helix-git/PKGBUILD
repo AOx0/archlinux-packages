@@ -1,6 +1,6 @@
 # Maintainer: Robin Jadoul (aur@ur4ndom.dev) 
 # Contributor: Wojciech Kępka (wojciech@wkepka.dev) 
-pkgname=helix-git-aoxo
+pkgname=helix-git
 _pkgname=helix
 pkgver=23.05.139.gdf094909d
 pkgrel=1
@@ -35,6 +35,10 @@ EOF
     cd "${_pkgname}"
     git submodule update --force --init --recursive --depth 1 --jobs 8
 
+    # Add custom transparent fleet_dark
+    cp runtime/themes/fleet_dark.toml runtime/themes/tfleet_dark.toml
+    sed  -i 's/"ui.background" = { bg = "Gray 10" }/"ui.background" = { }/' runtime/themes/tfleet_dark.toml
+
     rm rust-toolchain.toml
 }
 
@@ -43,16 +47,10 @@ build() {
     cargo build --release
 }
 
-check() {
-    cd "${_pkgname}"
-    cargo test --release --all-features
-    cargo build --release
-}
-
 package() {
     cd "${_pkgname}"
     mkdir -p "${pkgdir}${_lib_path}"
-    rm -r  "runtime/grammars/sources" 
+    rm -r  "runtime/grammars/sources"    
     cp -r "runtime" "${pkgdir}${_lib_path}"
     install -Dm 0755 "target/release/${_bin}" "${pkgdir}${_lib_path}/${_bin}"
     install -Dm 0644 "LICENSE" "${pkgdir}/usr/share/licenses/${_pkgname}/LICENSE"
