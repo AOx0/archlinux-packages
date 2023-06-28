@@ -1,7 +1,7 @@
 # Maintainer: Nicholas Novak <34256932+NickyBoy89@users.noreply.github.com>
 
 pkgname=typst-git
-pkgver=r2082.47a131df
+pkgver=r2090.7b92bd7c
 pkgrel=1
 pkgdesc="A new markup-based typesetting system that is powerful and easy to learn. "
 license=('Apache-2.0')
