@@ -7,6 +7,7 @@ My repository of pre-built packages for [pacman](https://wiki.archlinux.org/titl
 | [helix-git](https://github.com/helix-editor/helix) | A text editor written in Rust                                           |
 | [kmonad-git](https://github.com/kmonad/kmonad)     | An advanced keyboard manager written in Haskell                         |
 | [hyprland-git](https://github.com/hyprwm/Hyprland) | A dynamic tiling Wayland compositor that doesn't sacrifice on its looks |
+| gitkraken-wayland                                  | The intuitive, fast, and beautiful cross-platform Git client            |
 
 ## Usage
 
