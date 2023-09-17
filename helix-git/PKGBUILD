@@ -2,7 +2,7 @@
 # Contributor: Wojciech Kępka (wojciech@wkepka.dev) 
 pkgname=helix-git
 _pkgname=helix
-pkgver=23.05.397.g14401ff75
+pkgver=23.05.428.g8b076e385
 pkgrel=1
 pkgdesc="A text editor written in rust"
 url="https://helix-editor.com"
@@ -39,6 +39,22 @@ EOF
     cp runtime/themes/fleet_dark.toml runtime/themes/tfleet_dark.toml
     sed  -i 's/"ui.background" = { bg = "Gray 10" }/"ui.background" = { }/' runtime/themes/tfleet_dark.toml
 
+    cat >> languages.toml << EOF
+
+[[language]]
+name = "flex"
+scope = "source.flex"
+injection-regex = "flex"
+file-types = ["lex", "flex"]
+roots = []
+auto-format = false
+comment-token = "//"
+language-servers = [ ]
+indent = { tab-width = 4, unit = "    " }
+grammar = "c"
+
+EOF
+
     rm rust-toolchain.toml
 }
 
@@ -51,7 +67,9 @@ package() {
     cd "${_pkgname}"
     mkdir -p "${pkgdir}${_lib_path}"
     rm -r  "runtime/grammars/sources"    
+    cp -r runtime/queries/c runtime/queries/flex
     cp -r "runtime" "${pkgdir}${_lib_path}"
+
     install -Dm 0755 "target/release/${_bin}" "${pkgdir}${_lib_path}/${_bin}"
     install -Dm 0644 "LICENSE" "${pkgdir}/usr/share/licenses/${_pkgname}/LICENSE"
     install -Dm 0777 "${srcdir}/${_bin}" "${pkgdir}/usr/bin/${_bin}"
