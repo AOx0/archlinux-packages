@@ -2,7 +2,7 @@
 # Contributor: Wojciech Kępka (wojciech@wkepka.dev) 
 pkgname=helix-git
 _pkgname=helix
-pkgver=23.05.428.g8b076e385
+pkgver=23.05.435.g1c88432ef
 pkgrel=1
 pkgdesc="A text editor written in rust"
 url="https://helix-editor.com"
