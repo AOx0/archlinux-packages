@@ -1,19 +1,26 @@
 # Maintainer: Nicholas Novak <34256932+NickyBoy89@users.noreply.github.com>
 
 pkgname=typst-git
-pkgver=r2301.360cc9b9
+name=typst
+pkgver=r2346.d7928a8e
 pkgrel=1
 pkgdesc="A new markup-based typesetting system that is powerful and easy to learn. "
 license=('Apache-2.0')
 arch=('any')
 makedepends=('git' 'cargo')
 provides=('typst')
-depends=()
+depends=('gcc-libs' 'glibc')
 url="https://github.com/typst/typst"
 source=(
 	"typst::git+https://github.com/typst/typst"
 )
 md5sums=('SKIP')
+
+prepare() {
+	cd "$srcdir/typst"
+	cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
 
 pkgver() {
 	cd "$srcdir/typst"
@@ -22,7 +29,9 @@ pkgver() {
 
 build() {
   cd "$srcdir/typst"
-  cargo build -p typst-cli --release
+	CFLAGS+=" -ffat-lto-objects"
+	export GEN_ARTIFACTS=artifacts/
+  cargo build -p typst-cli --release --all-features
 }
 
 package() {
@@ -31,5 +40,12 @@ package() {
 
   # Install the licenses
   install -vDm 644 "$srcdir/typst/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+
+	# Install man pages and completions
+	local _artifacts="$srcdir/typst/crates/typst-cli/artifacts"
+	install -Dm0644 -t "$pkgdir/usr/share/man/man1/" "$_artifacts/$name"*.1
+	install -Dm0644 -t "$pkgdir/usr/share/zsh/site-functions/" "$_artifacts/_$name"
+	install -Dm0644 -t "$pkgdir/usr/share/fish/vendor_completions.d/" "$_artifacts/$name.fish"
+	install -Dm0644 "$_artifacts/$name.bash" "$pkgdir/usr/share/bash-completion/completions/$name"
 }
 
