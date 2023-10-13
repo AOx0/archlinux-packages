@@ -2,7 +2,7 @@
 # Contributor: Wojciech Kępka (wojciech@wkepka.dev) 
 pkgname=helix-git
 _pkgname=helix
-pkgver=23.05.435.g1c88432ef
+pkgver=23.05.475.g574f82130
 pkgrel=1
 pkgdesc="A text editor written in rust"
 url="https://helix-editor.com"
@@ -53,6 +53,30 @@ language-servers = [ ]
 indent = { tab-width = 4, unit = "    " }
 grammar = "c"
 
+[[language]]
+name = "yacc"
+scope = "source.yacc"
+injection-regex = "yacc"
+file-types = ["yacc"]
+roots = []
+auto-format = false
+comment-token = "//"
+language-servers = [ ]
+indent = { tab-width = 4, unit = "    " }
+grammar = "c"
+
+[[language]]
+name = "typst"
+scope = "source.typst"
+injection-regex = "typst"
+file-types = ["typ"]
+roots = []
+auto-format = false
+comment-token = "//"
+language-servers = [ ]
+indent = { tab-width = 4, unit = "    " }
+grammar = "markdown"
+
 EOF
 
     rm rust-toolchain.toml
@@ -68,6 +92,8 @@ package() {
     mkdir -p "${pkgdir}${_lib_path}"
     rm -r  "runtime/grammars/sources"    
     cp -r runtime/queries/c runtime/queries/flex
+    cp -r runtime/queries/c runtime/queries/yacc
+    cp -r runtime/queries/markdown runtime/queries/typst
     cp -r "runtime" "${pkgdir}${_lib_path}"
 
     install -Dm 0755 "target/release/${_bin}" "${pkgdir}${_lib_path}/${_bin}"
