@@ -2,18 +2,22 @@
 # Contributor: Wojciech Kępka (wojciech@wkepka.dev) 
 pkgname=helix-git
 _pkgname=helix
-pkgver=23.05.475.g574f82130
+pkgver=23.05.480.g7c98b1c82
 pkgrel=1
 pkgdesc="A text editor written in rust"
 url="https://helix-editor.com"
 _git="https://github.com/helix-editor/${_pkgname}.git"
 arch=(x86_64)
-makedepends=('cargo')
+makedepends=('cargo' 'ruplacer')
 depends=()
 provides=('hx')
 conflicts=('helix' 'helix-git')
-source=("${_pkgname}::git+${_git}")
-sha256sums=('SKIP')
+source=(
+    "${_pkgname}::git+${_git}" 
+    'https://raw.githubusercontent.com/uben0/tree-sitter-typst/master/queries/highlights.scm' 
+    'https://raw.githubusercontent.com/uben0/tree-sitter-typst/master/queries/injections.scm'
+)
+sha256sums=('SKIP' 'SKIP' 'SKIP')
 
 _bin="hx"
 _lib_path="/usr/lib/${_pkgname}"
@@ -37,9 +41,13 @@ EOF
 
     # Add custom transparent fleet_dark
     cp runtime/themes/fleet_dark.toml runtime/themes/tfleet_dark.toml
-    sed  -i 's/"ui.background" = { bg = "Gray 10" }/"ui.background" = { }/' runtime/themes/tfleet_dark.toml
+    sed -i 's/"ui.background" = { bg = "Gray 10" }/"ui.background" = { }/' runtime/themes/tfleet_dark.toml
 
-    cat >> languages.toml << EOF
+    ruplacer '\[language-server\]\n' '[language-server]
+
+typst-lsp = { command = "typst-lsp" }' --go -- languages.toml
+
+    cat >> languages.toml <<EOF
 
 [[language]]
 name = "flex"
@@ -68,17 +76,31 @@ grammar = "c"
 [[language]]
 name = "typst"
 scope = "source.typst"
-injection-regex = "typst"
-file-types = ["typ"]
+injection-regex = "typ(st)?"
+file-types = ["typ", "typst"]
 roots = []
 auto-format = false
 comment-token = "//"
-language-servers = [ ]
+language-servers = ["typst-lsp"]
 indent = { tab-width = 4, unit = "    " }
-grammar = "markdown"
+grammar = "typst"
+
+[language.auto-pairs]
+'(' = ')'
+'{' = '}'
+'[' = ']'
+'$' = '$'
+'"' = '"'
+
+[[grammar]]
+name = "typst"
+source = { git = "https://github.com/uben0/tree-sitter-typst", rev = "791cac478226e3e78809b67ff856010bde709594" }
 
 EOF
 
+    mkdir -p runtime/queries/typst
+    cp ../highlights.scm runtime/queries/typst/highlights.scm
+    cp ../injections.scm runtime/queries/typst/injections.scm
     rm rust-toolchain.toml
 }
 
@@ -93,7 +115,6 @@ package() {
     rm -r  "runtime/grammars/sources"    
     cp -r runtime/queries/c runtime/queries/flex
     cp -r runtime/queries/c runtime/queries/yacc
-    cp -r runtime/queries/markdown runtime/queries/typst
     cp -r "runtime" "${pkgdir}${_lib_path}"
 
     install -Dm 0755 "target/release/${_bin}" "${pkgdir}${_lib_path}/${_bin}"
