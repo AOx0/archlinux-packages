@@ -51,7 +51,8 @@ makedepends=(cmake
              meson
              ninja
              vulkan-headers
-             xorgproto)
+             xorgproto
+             jq)
 provides=("hyprland=${pkgver%%.r*}")
 conflicts=(hyprland)
 source=("git+https://github.com/hyprwm/Hyprland.git"
