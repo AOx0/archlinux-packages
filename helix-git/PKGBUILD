@@ -2,7 +2,7 @@
 # Contributor: Wojciech Kępka (wojciech@wkepka.dev) 
 pkgname=helix-git
 _pkgname=helix
-pkgver=23.05.480.g7c98b1c82
+pkgver=23.05.492.g31f50bf5b
 pkgrel=1
 pkgdesc="A text editor written in rust"
 url="https://helix-editor.com"
@@ -50,8 +50,8 @@ EOF
 [[language]]
 name = "flex"
 scope = "source.flex"
-injection-regex = "flex"
-file-types = ["lex", "flex"]
+injection-regex = "f?lex"
+file-types = ["lex", "flex", "l"]
 roots = []
 auto-format = false
 comment-token = "//"
@@ -62,8 +62,8 @@ grammar = "c"
 [[language]]
 name = "yacc"
 scope = "source.yacc"
-injection-regex = "yacc"
-file-types = ["yacc"]
+injection-regex = "y(acc)?"
+file-types = ["yacc", "y"]
 roots = []
 auto-format = false
 comment-token = "//"
