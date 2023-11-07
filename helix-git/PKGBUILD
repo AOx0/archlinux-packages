@@ -2,7 +2,7 @@
 # Contributor: Wojciech Kępka (wojciech@wkepka.dev) 
 pkgname=helix-git
 _pkgname=helix
-pkgver=23.05.492.g31f50bf5b
+pkgver=23.10.32.g7bc564d3d
 pkgrel=1
 pkgdesc="A text editor written in rust"
 url="https://helix-editor.com"
@@ -14,10 +14,8 @@ provides=('hx')
 conflicts=('helix' 'helix-git')
 source=(
     "${_pkgname}::git+${_git}" 
-    'https://raw.githubusercontent.com/uben0/tree-sitter-typst/master/queries/highlights.scm' 
-    'https://raw.githubusercontent.com/uben0/tree-sitter-typst/master/queries/injections.scm'
 )
-sha256sums=('SKIP' 'SKIP' 'SKIP')
+sha256sums=('SKIP')
 
 _bin="hx"
 _lib_path="/usr/lib/${_pkgname}"
@@ -42,8 +40,6 @@ EOF
     # Add custom transparent fleet_dark
     cp runtime/themes/fleet_dark.toml runtime/themes/tfleet_dark.toml
     sed -i 's/"ui.background" = { bg = "Gray 10" }/"ui.background" = { }/' runtime/themes/tfleet_dark.toml
-
-    sed -i 's/\[language-server\]/[language-server]\n\ntypst-lsp = { command = "typst-lsp" }/' languages.toml
 
     cat >> languages.toml <<EOF
 
@@ -71,34 +67,8 @@ language-servers = [ ]
 indent = { tab-width = 4, unit = "    " }
 grammar = "c"
 
-[[language]]
-name = "typst"
-scope = "source.typst"
-injection-regex = "typ(st)?"
-file-types = ["typ", "typst"]
-roots = []
-auto-format = false
-comment-token = "//"
-language-servers = ["typst-lsp"]
-indent = { tab-width = 4, unit = "    " }
-grammar = "typst"
-
-[language.auto-pairs]
-'(' = ')'
-'{' = '}'
-'[' = ']'
-'$' = '$'
-'"' = '"'
-
-[[grammar]]
-name = "typst"
-source = { git = "https://github.com/uben0/tree-sitter-typst", rev = "791cac478226e3e78809b67ff856010bde709594" }
-
 EOF
 
-    mkdir -p runtime/queries/typst
-    cp ../highlights.scm runtime/queries/typst/highlights.scm
-    cp ../injections.scm runtime/queries/typst/injections.scm
     rm rust-toolchain.toml
 }
 
