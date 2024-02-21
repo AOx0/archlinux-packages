@@ -69,7 +69,7 @@ grammar = "c"
 
 EOF
 
-    rm rust-toolchain.toml
+    # rm rust-toolchain.toml
 }
 
 build() {
