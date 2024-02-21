@@ -10,7 +10,7 @@
 
 pkgname=gitkraken-wayland
 pkgrel=1
-pkgver=9.11.0
+pkgver=9.12.0
 pkgdesc="The intuitive, fast, and beautiful cross-platform Git client."
 url="https://www.gitkraken.com/"
 provides=('gitkraken')
@@ -29,7 +29,7 @@ source=(
     "eula.html"
     "gitkraken.sh"
 )
-sha256sums=('14bb52d773b568656d81456b68f703b45da7634351acdfc674d23b891d9d53df'
+sha256sums=('a7d1a597d780bff36163c4bf768f5dde89f03eb748c0ad69d8d3544a975c418b'
             '5d6ec25e55c05e8a29de9468a169b4c4e5857ea8c88e53729f8494126c2d5316'
             '5b7b39b331bc32a606e1e79c695df4519c9b220225be00fb34ef368c3af319a6'
             '6e6c6ac37287e1ec5d5266689a49d18899488be901b21f5cb9749f545453626f')
