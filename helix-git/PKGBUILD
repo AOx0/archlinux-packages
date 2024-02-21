@@ -94,8 +94,8 @@ package() {
     mkdir -p "${pkgdir}${_lib_path}"
     rm -r  "runtime/grammars/sources" 
 
-    ln runtime/queries/c runtime/queries/flex
-    ln runtime/queries/c runtime/queries/yacc
+    cp -r runtime/queries/c runtime/queries/flex
+    cp -r runtime/queries/c runtime/queries/yacc
 
     cp -r "runtime" "${pkgdir}${_lib_path}"
     install -Dm 0755 "target/release/${_bin}" "${pkgdir}${_lib_path}/${_bin}"
