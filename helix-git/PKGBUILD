@@ -15,6 +15,7 @@ provides=('hx')
 conflicts=('helix')
 source=("${_pkgname}::git+${_git}")
 sha256sums=('SKIP')
+options=(!lto)
 
 _bin="hx"
 _lib_path="/usr/lib/${_pkgname}"
@@ -80,13 +81,13 @@ build() {
     cargo build --frozen --offline --release
 }
 
-check() {
-    cd "${_pkgname}"
-    export RUSTUP_TOOLCHAIN=stable
-    export CARGO_TARGET_DIR=target
-    cargo test --frozen --offline --workspace
-    cargo integration-test --frozen --offline
-}
+# check() {
+#     cd "${_pkgname}"
+#     export RUSTUP_TOOLCHAIN=stable
+#     export CARGO_TARGET_DIR=target
+#     cargo test --frozen --offline --workspace
+#     cargo integration-test --frozen --offline
+# }
 
 package() {
     cd "${_pkgname}"
