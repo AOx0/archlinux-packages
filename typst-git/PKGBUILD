@@ -9,7 +9,7 @@ pkgdesc='A markup-based typesetting system for the sciences'
 license=('Apache-2.0')
 arch=('any')
 _url="https://github.com/$_pkgname/$_pkgname"
-makedepends=(cargo
+makedepends=(rustup
 						 git)
 provides=("$_pkgname=$pkgver")
 conflicts=("$_pkgname")
