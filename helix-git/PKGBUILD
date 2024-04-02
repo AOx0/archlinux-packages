@@ -79,6 +79,8 @@ _srcenv() {
 	export RUSTUP_TOOLCHAIN=nightly
 	export CARGO_TARGET_DIR=target
 	export RUSTFLAGS="-Z threads=2"
+
+	rustup toolchain add nightly
 }
 
 build() {

@@ -21,9 +21,9 @@ md5sums=('SKIP')
 
 prepare() {
 	cd "$_pkgname"
+	_srcenv
 	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 }
-
 
 pkgver() {
 	cd "$_pkgname"
@@ -31,18 +31,21 @@ pkgver() {
 		sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g;s/rc.\.//'
 }
 
+
 _srcenv() {
 	export RUSTUP_TOOLCHAIN=nightly
 	export CARGO_TARGET_DIR=target
 	export RUSTFLAGS="-Z threads=2"
+
+	rustup toolchain add nightly
 }
 
 build() {
   cd "$_pkgname"
   _srcenv
-	CFLAGS+=" -ffat-lto-objects"
-	export TYPST_VERSION="${pkgver}"
-	export GEN_ARTIFACTS=artifacts/
+CFLAGS+=" -ffat-lto-objects"
+export TYPST_VERSION="${pkgver}"
+export GEN_ARTIFACTS=artifacts/
   cargo build -p typst-cli --frozen --release --all-features
 }
 
