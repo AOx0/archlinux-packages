@@ -3,7 +3,7 @@
 # Contributor: Wojciech Kępka (wojciech@wkepka.dev) 
 pkgname=helix-git
 _pkgname=helix
-pkgver=23.10.r237.g0d09fb4f5
+pkgver=24.03.r20.gb24c465a0
 pkgrel=1
 pkgdesc="A text editor written in rust"
 url="https://helix-editor.com"
@@ -35,8 +35,8 @@ EOF
     chmod +x "$_bin"
 
     cd "${_pkgname}"
-    export RUSTUP_TOOLCHAIN=stable
-    export CARGO_TARGET_DIR=target
+    _srcenv
+    
     cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
 
     # Add custom transparent fleet_dark
@@ -74,20 +74,18 @@ EOF
     rm rust-toolchain.toml
 }
 
-build() {
-    cd "${_pkgname}"
-    export RUSTUP_TOOLCHAIN=stable
-    export CARGO_TARGET_DIR=target
-    cargo build --frozen --offline --release
+
+_srcenv() {
+	export RUSTUP_TOOLCHAIN=nightly
+	export CARGO_TARGET_DIR=target
+	export RUSTFLAGS="-Z threads=2"
 }
 
-# check() {
-#     cd "${_pkgname}"
-#     export RUSTUP_TOOLCHAIN=stable
-#     export CARGO_TARGET_DIR=target
-#     cargo test --frozen --offline --workspace
-#     cargo integration-test --frozen --offline
-# }
+build() {
+    cd "${_pkgname}"
+    _srcenv
+    cargo build --frozen --offline --release
+}
 
 package() {
     cd "${_pkgname}"
