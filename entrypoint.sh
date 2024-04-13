@@ -22,7 +22,7 @@ rm ./gpg_key
 gpg --list-keys --keyid-format=long
 gpg --list-secret-keys --keyid-format=long
 
-for i in typst-git helix-git gitkraken-wayland; do
+for i in tinymist-bin typst-git helix-git gitkraken-wayland; do
 	status=13
 	git submodule update --init $i
 	cd $i
