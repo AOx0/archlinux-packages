@@ -9,7 +9,7 @@ pkgdesc='A markup-based typesetting system for the sciences'
 license=('Apache-2.0')
 arch=('any')
 _url="https://github.com/$_pkgname/$_pkgname"
-makedepends=(cargo
+makedepends=(cargo-nightly
 			 git)
 provides=("$_pkgname=$pkgver")
 conflicts=("$_pkgname")
@@ -33,8 +33,9 @@ pkgver() {
 
 
 _srcenv() {
-	export RUSTUP_TOOLCHAIN=stable
+	export RUSTUP_TOOLCHAIN=nightly
 	export CARGO_TARGET_DIR=target
+	export RUSTFLAGS="-Z threads=2"
 }
 
 build() {

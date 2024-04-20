@@ -7,9 +7,9 @@ pkgver=24.03.r20.gb24c465a0
 pkgrel=1
 pkgdesc="A text editor written in rust"
 url="https://helix-editor.com"
-_git="https://github.com/helix-editor/${_pkgname}.git"
+_git="https://github.com/AOx0/${_pkgname}.git"
 arch=(x86_64)
-makedepends=('git' 'cargo')
+makedepends=('git' 'cargo-nightly')
 depends=()
 provides=('hx')
 conflicts=('helix')
@@ -76,8 +76,9 @@ EOF
 
 
 _srcenv() {
-	export RUSTUP_TOOLCHAIN=stable
+	export RUSTUP_TOOLCHAIN=nightly
 	export CARGO_TARGET_DIR=target
+	export RUSTFLAGS="-Z threads=2"
 }
 
 build() {
