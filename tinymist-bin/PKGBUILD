@@ -7,7 +7,6 @@ pkgdesc="An integrated language service for Typst"
 arch=('x86_64')
 url="https://github.com/Myriad-Dreamin/tinymist"
 license=('Apache')
-makedepends=(cargo)
 options=('strip')
 source=("https://github.com/Myriad-Dreamin/tinymist/releases/download/v$pkgver/$_pkgname-linux-x64")
 sha256sums=('3a6dde916018c97f65898b96b926b4e98abdc9f6e10e5841d18d924f10f09e90')

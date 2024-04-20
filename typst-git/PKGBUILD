@@ -9,12 +9,10 @@ pkgdesc='A markup-based typesetting system for the sciences'
 license=('Apache-2.0')
 arch=('any')
 _url="https://github.com/$_pkgname/$_pkgname"
-makedepends=(cargo-nightly
-			 git)
+makedepends=('cargo-nightly' 'git')
 provides=("$_pkgname=$pkgver")
 conflicts=("$_pkgname")
-depends=(gcc-libs
-         glibc)
+depends=('gcc-libs' 'glibc')
 url="https://github.com/typst/typst"
 source=("$_pkgname::git+$_url.git")
 md5sums=('SKIP')
