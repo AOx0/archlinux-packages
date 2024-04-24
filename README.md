@@ -6,7 +6,6 @@ My repository of pre-built packages for [pacman](https://wiki.archlinux.org/titl
 | -------------------------------------------------------- | ---------------------------------------------------------------------------- |
 | [gitkraken-wayland](https://github.com/Azd325/gitkraken) | The intuitive, fast, and beautiful cross-platform Git client.                |
 | [helix-git](https://github.com/AOx0/helix)               | (Fork) A text editor written in Rust.                                        |
-| [tinymist](https://github.com/Myriad-Dreamin/tinymist)   | Tinymist [ˈtaɪni mɪst] is an integrated language service for Typst [taɪpst]. |
 | [typst-git](https://github.com/typst/typst)              | A markup-based typesetting system for the sciences.                          |
 
 
