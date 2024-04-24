@@ -8,7 +8,7 @@ pkgrel=1
 license=('MPL2')
 pkgdesc="A text editor written in rust"
 url="https://helix-editor.com"
-_git="https://github.com/AOx0/${_pkgname}.git"
+_git="https://github.com/AOx0/${_pkgname}.git#branch=hotfix"
 arch=(x86_64)
 makedepends=('git' 'cargo-nightly')
 depends=()
