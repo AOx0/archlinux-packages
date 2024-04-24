@@ -5,6 +5,7 @@ pkgname=helix-git
 _pkgname=helix
 pkgver=24.03.r20.gb24c465a0
 pkgrel=1
+license=('MPL2')
 pkgdesc="A text editor written in rust"
 url="https://helix-editor.com"
 _git="https://github.com/AOx0/${_pkgname}.git"
