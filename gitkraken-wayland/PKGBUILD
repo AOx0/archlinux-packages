@@ -1,0 +1,24 @@
+# Maintainer: Alejandro Osornio <aoxo.contact@gmail.com>
+
+pkgname=gitkraken-wayland
+pkgrel=1
+pkgver=1.0.0
+pkgdesc="The intuitive, fast, and beautiful cross-platform Git client."
+url="https://www.gitkraken.com/"
+provides=('gitkraken')
+arch=('any')
+license=('custom')
+depends=('gitkraken')
+optdepends=()
+makedepends=()
+conflicts=()
+backup=()
+install=''
+source=(
+    "GitKrakenWayland.desktop"
+)
+sha256sums=('f36db9ba3a550995546785dc3e18a1877d5b2320de6e1157789fcd2a592ce7f6')
+
+package() {
+    install -D -m644 "./GitKrakenWayland.desktop" "${pkgdir}/usr/share/applications/GitKrakenWayland.desktop"
+}
